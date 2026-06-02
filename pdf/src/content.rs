@@ -1192,4 +1192,14 @@ EI
         let mut lexer = Lexer::new(data);
         assert!(inline_image(&mut lexer, &NoResolve).is_ok());
     }
+
+    #[test]
+    fn test_sh_operator() {
+        // `sh` must emit Op::Shade carrying the shading resource name.
+        let ops = parse_ops(b"/Sh1 sh", &NoResolve).expect("parse sh");
+        assert!(
+            matches!(ops.as_slice(), [Op::Shade { name }] if name.as_str() == "Sh1"),
+            "expected [Op::Shade {{ name: Sh1 }}], got {ops:?}"
+        );
+    }
 }
