@@ -408,9 +408,7 @@ impl OpBuilder {
             "sc" | "scn" => {
                 push(Op::FillColor { color: Color::Other(args.collect()) });
             }
-            "sh"  => {
-
-            }
+            "sh"  => push(Op::Shade { name: name(&mut args)? }),
             "T*"  => push(Op::TextNewline),
             "Tc"  => push(Op::CharSpacing { char_space: number(&mut args)? }),
             "Td"  => push(Op::MoveTextPosition { translation: point(&mut args)? }),
